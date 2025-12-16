@@ -37,7 +37,15 @@
     "llm",
     "ai-coding"
   ],
-  "author": "",
+  "author": "Michał Katański <github@katan.ski>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mkatanski/speckit-status.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mkatanski/speckit-status/issues"
+  },
+  "homepage": "https://github.com/mkatanski/speckit-status#readme",
   "license": "MIT",
   "devDependencies": {
     "@eslint/js": "^9.0.0",
