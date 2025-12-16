@@ -1,5 +1,5 @@
 {
-  "name": "@mkatanski/speckit-status",
+  "name": "speckit-status",
   "version": "0.1.0",
   "description": "CLI companion for GitHub Spec Kit - track progress on spec-driven development tasks",
   "type": "module",

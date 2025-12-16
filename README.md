@@ -1,6 +1,6 @@
 # speckit-status
 
-[![npm version](https://img.shields.io/npm/v/@mkatanski/speckit-status.svg)](https://www.npmjs.com/package/@mkatanski/speckit-status)
+[![npm version](https://img.shields.io/npm/v/speckit-status.svg)](https://www.npmjs.com/package/speckit-status)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D20.0.0-brightgreen.svg)](https://nodejs.org/)
 
@@ -32,14 +32,14 @@ When working with AI coding agents using the Spec-Driven Development workflow, [
 
 ```bash
 # npm
-npm install -g @mkatanski/speckit-status
+npm install -g speckit-status
 
 # pnpm
-pnpm add -g @mkatanski/speckit-status
+pnpm add -g speckit-status
 
 # Or run directly without installing
-npx @mkatanski/speckit-status --help
-pnpm dlx @mkatanski/speckit-status --help
+npx speckit-status --help
+pnpm dlx speckit-status --help
 ```
 
 ## Quick Start
@@ -129,7 +129,7 @@ import {
   formatJSON,
   getCurrentBranch,
   getSpecFolderFromBranch,
-} from '@mkatanski/speckit-status';
+} from 'speckit-status';
 import { readFileSync } from 'fs';
 
 // Parse a tasks.md file
