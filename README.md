@@ -1,7 +1,9 @@
 # speckit-status
 
 [![npm version](https://img.shields.io/npm/v/speckit-status.svg)](https://www.npmjs.com/package/speckit-status)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![CI](https://github.com/mkatanski/speckit-status/actions/workflows/ci.yml/badge.svg)](https://github.com/mkatanski/speckit-status/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Bundle Size](https://img.shields.io/bundlephobia/minzip/speckit-status)](https://bundlephobia.com/package/speckit-status)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D20.0.0-brightgreen.svg)](https://nodejs.org/)
 
 A CLI companion for [GitHub's Spec Kit](https://github.com/github/spec-kit) that visualizes and tracks progress on spec-driven development tasks.
@@ -208,13 +210,7 @@ I don't gatekeep how code gets written. I care that it works, it's readable, and
 
 ## Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+Contributions are welcome! Please read our [Contributing Guide](CONTRIBUTING.md) for details on how to submit pull requests, report issues, and contribute to the project.
 
 ### Development
 
@@ -234,6 +230,10 @@ npm run lint
 # Test locally
 ./dist/cli.js --help
 ```
+
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for a list of changes and version history.
 
 ## License
 

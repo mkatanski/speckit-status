@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "description": "CLI companion for GitHub Spec Kit - track progress on spec-driven development tasks",
   "type": "module",
+  "sideEffects": false,
   "bin": {
     "speckit-status": "./dist/cli.js"
   },
   "main": "./dist/index.js",
+  "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
@@ -20,13 +22,22 @@
   "engines": {
     "node": ">=20.0.0"
   },
+  "packageManager": "npm@10.8.2",
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
     "prepublishOnly": "npm run build",
     "typecheck": "tsc --noEmit",
     "lint": "eslint src",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "format:check": "prettier --check \"src/**/*.ts\"",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "prepare": "husky",
+    "docs": "typedoc",
+    "semantic-release": "semantic-release"
   },
   "keywords": [
     "speckit",
@@ -48,14 +59,28 @@
   "homepage": "https://github.com/mkatanski/speckit-status#readme",
   "license": "MIT",
   "devDependencies": {
+    "@commitlint/cli": "^20.2.0",
+    "@commitlint/config-conventional": "^20.2.0",
     "@eslint/js": "^9.0.0",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
     "@types/node": "^22.0.0",
+    "@vitest/coverage-v8": "^4.0.16",
+    "conventional-changelog-conventionalcommits": "^9.1.0",
     "eslint": "^9.0.0",
+    "eslint-config-prettier": "^10.1.8",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
+    "prettier": "^3.7.4",
+    "semantic-release": "^24.2.9",
     "tsup": "^8.0.0",
+    "typedoc": "^0.28.15",
     "typescript": "^5.7.0",
-    "typescript-eslint": "^8.0.0"
+    "typescript-eslint": "^8.0.0",
+    "vitest": "^4.0.16"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "provenance": true
   }
 }

@@ -18,13 +18,13 @@ const COLORS = {
 
 // Box drawing characters for dependency tree
 const BOX = {
-  vertical: '\u2502',      // │
-  horizontal: '\u2500',    // ─
-  corner: '\u2514',        // └
-  tee: '\u251C',           // ├
-  arrow: '\u2192',         // →
-  check: '\u2713',         // ✓
-  bullet: '\u2022',        // •
+  vertical: '\u2502', // │
+  horizontal: '\u2500', // ─
+  corner: '\u2514', // └
+  tee: '\u251C', // ├
+  arrow: '\u2192', // →
+  check: '\u2713', // ✓
+  bullet: '\u2022', // •
 } as const;
 
 /**
@@ -41,11 +41,7 @@ function formatProgressBar(completed: number, total: number, width: number = 20)
 /**
  * Format a single phase status line with dependency indicator
  */
-function formatPhaseStatus(
-  phase: Phase,
-  phases: Phase[],
-  showDeps: boolean = true
-): string {
+function formatPhaseStatus(phase: Phase, phases: Phase[], showDeps: boolean = true): string {
   const statusColor = phase.isComplete ? COLORS.green : COLORS.yellow;
   const checkmark = phase.isComplete ? ` ${BOX.check}` : '';
 
@@ -99,7 +95,9 @@ function formatPhaseDependencyInfo(phase: Phase, phases: Phase[]): string[] {
       const name = depPhase?.dependency?.shortName ?? depPhase?.title ?? '';
       return `P${d} ${COLORS.dim}(${name})${COLORS.reset} ${status}`;
     });
-    lines.push(`  ${COLORS.dim}${BOX.tee}${BOX.horizontal} Depends on:${COLORS.reset} ${depStatus.join(', ')}`);
+    lines.push(
+      `  ${COLORS.dim}${BOX.tee}${BOX.horizontal} Depends on:${COLORS.reset} ${depStatus.join(', ')}`
+    );
   }
 
   // What this phase blocks
@@ -109,7 +107,9 @@ function formatPhaseDependencyInfo(phase: Phase, phases: Phase[]): string[] {
       const name = blockPhase?.dependency?.shortName ?? '';
       return `P${b}${name ? ` ${COLORS.dim}(${name})${COLORS.reset}` : ''}`;
     });
-    lines.push(`  ${COLORS.dim}${BOX.tee}${BOX.horizontal} Blocks:${COLORS.reset} ${blockNames.join(', ')}`);
+    lines.push(
+      `  ${COLORS.dim}${BOX.tee}${BOX.horizontal} Blocks:${COLORS.reset} ${blockNames.join(', ')}`
+    );
   }
 
   // Parallel tasks within this phase
@@ -118,7 +118,9 @@ function formatPhaseDependencyInfo(phase: Phase, phases: Phase[]): string[] {
       dep.parallelTasks.length > 6
         ? `${dep.parallelTasks.slice(0, 6).join(', ')}... (${dep.parallelTasks.length} total)`
         : dep.parallelTasks.join(', ');
-    lines.push(`  ${COLORS.dim}${BOX.corner}${BOX.horizontal} Parallel tasks:${COLORS.reset} ${COLORS.cyan}${taskList}${COLORS.reset}`);
+    lines.push(
+      `  ${COLORS.dim}${BOX.corner}${BOX.horizontal} Parallel tasks:${COLORS.reset} ${COLORS.cyan}${taskList}${COLORS.reset}`
+    );
   }
 
   return lines;
@@ -132,9 +134,7 @@ export function formatOutput(result: ParseResult, options: CLIOptions): void {
 
   // Header
   console.log();
-  console.log(
-    `${COLORS.bold}${specName}${COLORS.reset} ${COLORS.dim}Tasks${COLORS.reset}`
-  );
+  console.log(`${COLORS.bold}${specName}${COLORS.reset} ${COLORS.dim}Tasks${COLORS.reset}`);
   console.log('='.repeat(specName.length + 6));
   console.log();
 
@@ -206,9 +206,7 @@ export function formatOutput(result: ParseResult, options: CLIOptions): void {
       otherAvailable.forEach((phase: Phase) => {
         const depOn = phase.dependency?.dependsOn ?? [];
         const afterInfo =
-          depOn.length > 0
-            ? ` ${COLORS.dim}(after P${depOn.join(', P')})${COLORS.reset}`
-            : '';
+          depOn.length > 0 ? ` ${COLORS.dim}(after P${depOn.join(', P')})${COLORS.reset}` : '';
         console.log(
           `  ${COLORS.magenta}${BOX.bullet}${COLORS.reset} Phase ${phase.number}: ${phase.dependency?.shortName ?? phase.title}${afterInfo}`
         );

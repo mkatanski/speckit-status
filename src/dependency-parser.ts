@@ -261,9 +261,7 @@ export function parseDependencies(content: string): Map<number, PhaseDependency>
 export function calculateAvailablePhases(
   phases: { number: number; isComplete: boolean; dependency?: PhaseDependency }[]
 ): number[] {
-  const completedPhases = new Set(
-    phases.filter((p) => p.isComplete).map((p) => p.number)
-  );
+  const completedPhases = new Set(phases.filter((p) => p.isComplete).map((p) => p.number));
 
   const available: number[] = [];
 

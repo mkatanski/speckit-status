@@ -7,8 +7,7 @@ import { getSpecName } from './git-utils.js';
 import type { Task, Phase, ParseResult } from './types.js';
 
 // Phase header: "## Phase N: Title" or "## Phase N: Title (Priority: P?)"
-const PHASE_HEADER_REGEX =
-  /^##\s+Phase\s+(\d+):\s*(.+?)(?:\s*\(Priority:\s*(P\d)\))?$/;
+const PHASE_HEADER_REGEX = /^##\s+Phase\s+(\d+):\s*(.+?)(?:\s*\(Priority:\s*(P\d)\))?$/;
 
 // Task line: "- [X] T### rest of title" or "- [ ] T### rest of title"
 const TASK_LINE_REGEX = /^-\s+\[(X| )\]\s+(T\d+)\s+(.*)$/;

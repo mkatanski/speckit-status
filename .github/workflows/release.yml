@@ -1,0 +1,55 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+# Required permissions for semantic-release and OIDC trusted publishing
+permissions:
+  contents: write      # To create releases and push changelog
+  issues: write        # To comment on issues
+  pull-requests: write # To comment on PRs
+  id-token: write      # Required for npm OIDC trusted publishing
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    # Skip release on commits created by semantic-release
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    # Environment for npm trusted publishing (configure in npm package settings)
+    environment: npm-publish
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Verify npm version supports OIDC
+        run: |
+          NPM_VERSION=$(npm --version)
+          echo "npm version: $NPM_VERSION"
+          # npm 11.5.1+ required for OIDC trusted publishing
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+
+      - name: Run tests
+        run: npm run test
+
+      - name: Release
+        run: npx semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # NPM_TOKEN not needed - using OIDC trusted publishing
+          # Provenance is automatically enabled with OIDC
