@@ -4,11 +4,9 @@ on:
   push:
     branches: [main]
 
-# Required permissions for semantic-release and OIDC trusted publishing
+# Required permissions for OIDC trusted publishing
 permissions:
-  contents: write      # To create releases and push changelog
-  issues: write        # To comment on issues
-  pull-requests: write # To comment on PRs
+  contents: read       # Minimal permission for checkout
   id-token: write      # Required for npm OIDC trusted publishing
 
 jobs:
@@ -19,11 +17,19 @@ jobs:
     # Environment for npm trusted publishing (configure in npm package settings)
     environment: npm-publish
     steps:
+      - name: Generate GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ vars.RELEASE_APP_ID }}
+          private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
+
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
           persist-credentials: false
+          token: ${{ steps.app-token.outputs.token }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -50,6 +56,6 @@ jobs:
       - name: Release
         run: npx semantic-release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
           # Signal to npm that we're using OIDC trusted publishing
           NPM_CONFIG_PROVENANCE: true
