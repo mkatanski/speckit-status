@@ -10,6 +10,9 @@ A CLI companion for [GitHub's Spec Kit](https://github.com/github/spec-kit) that
 
 ---
 
+<img width="3082" height="1014" alt="image" src="https://github.com/user-attachments/assets/ff6bc94c-670c-46dd-a4f7-7688d024049d" />
+
+
 ## What is this?
 
 When working with AI coding agents using the Spec-Driven Development workflow, [Spec Kit](https://github.com/github/spec-kit) generates `tasks.md` files containing phased implementation plans. This CLI tool parses those files to give you:
