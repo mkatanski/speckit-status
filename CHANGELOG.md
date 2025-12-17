@@ -1,3 +1,9 @@
+## [1.1.0](https://github.com/mkatanski/speckit-status/compare/v1.0.0...v1.1.0) (2025-12-17)
+
+### Features
+
+* add security workflows and repository configuration ([#5](https://github.com/mkatanski/speckit-status/issues/5)) ([5795fcb](https://github.com/mkatanski/speckit-status/commit/5795fcb7a6c96ab7c5cde989198f8416259790ec))
+
 ## 1.0.0 (2025-12-17)
 
 ### Bug Fixes
