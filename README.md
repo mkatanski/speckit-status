@@ -67,7 +67,7 @@ OPTIONS:
   -j, --json                 Output as JSON
   -a, --all                  Show all tasks (including completed)
   -p, --phase <number>       Show only specific phase
-  -n, --next                 Output only next phase number (for scripts)
+  -n, --next [type]          Output next item for scripts (type: phase|task, default: phase)
   -h, --help                 Show help message
   -v, --version              Show version
 ```
@@ -87,6 +87,10 @@ speckit-status -j > progress.json
 # Get next phase number for scripting
 NEXT=$(speckit-status -n)
 echo "Next phase: $NEXT"
+
+# Get next task ID for scripting
+TASK=$(speckit-status -n task)
+echo "Next task: $TASK"
 
 # Show all tasks including completed ones
 speckit-status -a -p 1
@@ -143,6 +147,7 @@ const result = parseTasksFile(content, './specs/001-feature');
 
 console.log(`Progress: ${result.completedTasks}/${result.totalTasks}`);
 console.log(`Next phase: ${result.nextPhase?.number}`);
+console.log(`Next task: ${result.nextTask?.id}`);
 console.log(`Available phases: ${result.availablePhases.map(p => p.number).join(', ')}`);
 
 // Access phase details
@@ -194,6 +199,7 @@ interface ParseResult {
   totalTasks: number;
   completedTasks: number;
   nextPhase?: Phase;
+  nextTask?: Task;           // First incomplete task in nextPhase
   availablePhases: Phase[];
 }
 ```
