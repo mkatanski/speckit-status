@@ -58,6 +58,8 @@ export interface ParseResult {
   completedTasks: number;
   /** First incomplete phase (suggested next phase) */
   nextPhase?: Phase;
+  /** First incomplete task in the next phase */
+  nextTask?: Task;
   /** Phases that can be started now (dependencies satisfied) */
   availablePhases: Phase[];
 }
