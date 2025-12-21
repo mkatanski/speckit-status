@@ -97,6 +97,9 @@ export function parseTasksFile(content: string, specFolder: string): ParseResult
   // Find next phase (first incomplete phase)
   const nextPhase = phases.find((p) => !p.isComplete);
 
+  // Find next task (first incomplete task in next phase)
+  const nextTask = nextPhase?.tasks.find((t) => !t.completed);
+
   // Calculate available phases (dependencies satisfied, not complete)
   const availablePhaseNumbers = calculateAvailablePhases(phases);
   const availablePhases = phases.filter(
@@ -111,5 +114,6 @@ export function parseTasksFile(content: string, specFolder: string): ParseResult
     completedTasks,
     availablePhases,
     ...(nextPhase !== undefined && { nextPhase }),
+    ...(nextTask !== undefined && { nextTask }),
   };
 }

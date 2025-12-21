@@ -25,7 +25,7 @@ OPTIONS:
   -j, --json                 Output as JSON
   -a, --all                  Show all tasks (including completed)
   -p, --phase <number>       Show only specific phase
-  -n, --next                 Output only next phase number (for scripts)
+  -n, --next [type]          Output next item for scripts (type: phase|task, default: phase)
   -h, --help                 Show this help message
   -v, --version              Show version
 
@@ -35,20 +35,46 @@ EXAMPLES:
   speckit-status -p 2                 # Show phase 2 details
   speckit-status -j                   # Output as JSON
   speckit-status -n                   # Get next phase number
+  speckit-status -n phase             # Get next phase number (explicit)
+  speckit-status -n task              # Get next task ID (e.g., T003)
 `;
+
+type NextType = 'phase' | 'task' | false;
 
 interface ParsedArgs {
   specFolder: string | undefined;
   json: boolean;
   all: boolean;
   phase: number | undefined;
-  next: boolean;
+  next: NextType;
   help: boolean;
   version: boolean;
 }
 
 function parseCliArgs(): ParsedArgs {
+  // Pre-process argv to extract --next type (phase|task)
+  // This is needed because parseArgs doesn't support optional values
+  const argv = process.argv.slice(2);
+  let nextType: NextType = false;
+
+  for (let i = 0; i < argv.length; i++) {
+    const arg = argv[i];
+    if (arg === '-n' || arg === '--next') {
+      const nextArg = argv[i + 1];
+      if (nextArg === 'phase' || nextArg === 'task') {
+        nextType = nextArg;
+        // Remove the type argument so parseArgs doesn't choke on it
+        argv.splice(i + 1, 1);
+      } else {
+        // Default to 'phase' for backward compatibility
+        nextType = 'phase';
+      }
+      break;
+    }
+  }
+
   const { values } = parseArgs({
+    args: argv,
     options: {
       'spec-folder': {
         type: 'string',
@@ -92,7 +118,7 @@ function parseCliArgs(): ParsedArgs {
     json: values.json,
     all: values.all,
     phase: values.phase !== undefined ? parseInt(values.phase, 10) : undefined,
-    next: values.next,
+    next: nextType,
     help: values.help,
     version: values.version,
   };
@@ -158,12 +184,21 @@ function main(): void {
   // Parse tasks
   const result = parseTasksFile(content, specFolder);
 
-  // Handle --next flag (output only next phase number)
+  // Handle --next flag (output only next phase number or task ID)
   if (args.next) {
-    if (result.nextPhase) {
-      console.log(result.nextPhase.number);
+    if (args.next === 'task') {
+      if (result.nextTask) {
+        console.log(result.nextTask.id);
+      } else {
+        console.log('done');
+      }
     } else {
-      console.log('done');
+      // Default: phase
+      if (result.nextPhase) {
+        console.log(result.nextPhase.number);
+      } else {
+        console.log('done');
+      }
     }
     process.exit(0);
   }
