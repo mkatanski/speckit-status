@@ -1,3 +1,9 @@
+## [1.2.0](https://github.com/mkatanski/speckit-status/compare/v1.1.0...v1.2.0) (2025-12-21)
+
+### Features
+
+* Improve next command with phase or task selection ([#13](https://github.com/mkatanski/speckit-status/issues/13)) ([6e89e43](https://github.com/mkatanski/speckit-status/commit/6e89e4317b8ee9b9f6a8d202e21cbed0bd83f32d))
+
 ## [1.1.0](https://github.com/mkatanski/speckit-status/compare/v1.0.0...v1.1.0) (2025-12-17)
 
 ### Features
